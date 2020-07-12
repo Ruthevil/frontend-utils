@@ -10,7 +10,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isNumber(value) {
+    isNumber(value = "") {
         return /^\d{1,}$/g.test(value)
     }
 
@@ -19,7 +19,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isLetter(value) {
+    isLetter(value = "") {
         return /^[a-zA-Z]+$/g.test(value)
     }
 
@@ -28,7 +28,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isLowercaseLetter(value) {
+    isLowercaseLetter(value = "") {
         return /^[a-z]+$/g.test(value)
     }
 
@@ -37,7 +37,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isUppercaseLetter(value) {
+    isUppercaseLetter(value = "") {
         return /^[A-Z]+$/g.test(value)
     }
 
@@ -46,7 +46,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isNumberOrLetter(value) {
+    isNumberOrLetter(value = "") {
         return /^[0-9a-zA-Z]+$/g.test(value)
     }
 
@@ -55,7 +55,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isNumberAndLetter(value) {
+    isNumberAndLetter(value = "") {
         return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/g.test(value)
     }
 
@@ -64,7 +64,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isChinese(value) {
+    isChinese(value = "") {
         return /^[\u4E00-\u9FA5]+$/g.test(value)
     }
 
@@ -73,7 +73,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isChineseNumberLetter(value) {
+    isChineseNumberLetter(value = "") {
         return /^[0-9a-zA-Z\u4E00-\u9FA5]+$/g.test(value)
     }
 
@@ -82,7 +82,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isEmail(value) {
+    isEmail(value = "") {
         const reg = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/g;
         return reg.test(value)
     }
@@ -92,7 +92,7 @@ class IsUtil {
      * @param value
      * @return {boolean}
      */
-    isPhone(value) {
+    isPhone(value = "") {
         return /^((\+|00)86)?1[3-9]\d{9}$/g.test(value)
     }
 

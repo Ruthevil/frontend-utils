@@ -10,7 +10,7 @@ class UrlUtil {
      * @param value
      * @return {boolean}
      */
-    isUrl(value) {
+    isUrl(value = "") {
         const a = document.createElement('a');
         a.href = value;
         return [
@@ -26,7 +26,7 @@ class UrlUtil {
      * @param value
      * @return {string|null}
      */
-    getQueryString(value) {
+    getQueryString(value = "") {
         const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
         const url = window.location.href;
         const search = url.substring(url.lastIndexOf('?') + 1);

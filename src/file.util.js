@@ -10,9 +10,9 @@ class FileUtil {
      * @param value
      * @return {string} 文件大小(kb)
      */
-    formatFileSize(value) {
+    formatFileSize(value = "") {
         let i, unit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
-        for (i = 0; i < unit.length && size >= 1024; i++) {
+        for (i = 0; i < unit.length && value >= 1024; i++) {
             value /= 1024
         }
         return (Math.round(value * 100) / 100 || 0) + unit[i]
