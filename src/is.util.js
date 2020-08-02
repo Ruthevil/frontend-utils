@@ -96,6 +96,67 @@ class IsUtil {
         return /^((\+|00)86)?1[3-9]\d{9}$/g.test(value)
     }
 
+    /**
+     *类型判断
+     * @param target
+     * @param type
+     * @returns {boolean}
+     * isType([],"Array")   =>  true
+     * isType(/\d/,"Regexp")    =>  true
+     * isType(new Date(),"Date")    =>  true
+     * isType(function(){},"Function")  =>  true
+     * isType(Symbol(),"Symbol")    =>  true
+     */
+    isType(target, type) {
+        let targetType = Object.prototype.toString.call(target).slice(8, -1).toLowerCase()
+        return targetType === type.toLowerCase()
+    }
+
+    /**
+     * 检测是否为PC浏览器
+     * @returns {boolean}
+     */
+    isPCBrowser() {
+        let e = window.navigator.userAgent.toLowerCase(),
+            t = "ipad" === e.match(/ipad/i),
+            i = "iphone" === e.match(/iphone/i),
+            r = "midp" === e.match(/midp/i),
+            n = "rv:1.2.3.4" === e.match(/rv:1.2.3.4/i),
+            a = "ucweb" === e.match(/ucweb/i),
+            o = "android" === e.match(/android/i),
+            s = "window ce" === e.match(/window ce/i),
+            l = "window mobile" === e.match(/window mobile/i);
+        return !(t || i || r || n || a || 0 || s || l)
+    }
+
+    /**
+     * 识别浏览器及平台
+     * @returns {string}
+     */
+    getPlatformInfo() {
+        // 运行环境是浏览器
+        let inBrowser = typeof window !== "undefined";
+        // 运行环境是微信
+        let inWeex = typeof WXEnvironment !== "undefined" && !!WXEnvironment.platform;
+        let weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
+        // 运行环境是UA判断
+        let UA = inBrowser && window.navigator.userAgent.toLowerCase();
+        if (UA) {
+            let platforms = {
+                IE: /msie|trident/.test(UA),
+                IE9: UA.indexOf("msie 9.0") > 0,
+                Edge: UA.indexOf("edge/") > 0,
+                Android: UA.indexOf("android") > 0 || (weexPlatform === "android"),
+                IOS: /iphone|ipad|ipod|ios/.test(UA) || (weexPlatform === "ios"),
+                Chrome: /chrome\/\d+/.test(UA) && !(UA.indexOf("edge/") > 0)
+            }
+            for (const key in platforms) {
+                if (platforms.hasOwnProperty(key)) {
+                    if (platforms[key]) return key
+                }
+            }
+        }
+    }
 }
 
 export default new IsUtil()

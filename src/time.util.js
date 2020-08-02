@@ -6,6 +6,15 @@ class TimeUtil {
     }
 
     /**
+     * 补零
+     * @param n
+     * @returns {*|string}
+     */
+    add0(n) {
+        return n > 10 ? n : `0${n}`
+    }
+
+    /**
      * 获取年份
      * @param time
      * @return {number}
@@ -22,7 +31,7 @@ class TimeUtil {
      */
     getMonth(time = new Date(), fillFlag = true) {
         let month = time.getMonth() + 1;
-        return fillFlag && month < 10 ? `0${month}` : month
+        return fillFlag && this.add0(month)
     }
 
     /**
@@ -33,7 +42,7 @@ class TimeUtil {
      */
     getDay(time = new Date(), fileFlag = true) {
         let day = time.getDate();
-        return fileFlag && day < 10 ? `0${day}` : day
+        return fileFlag && this.add0(day)
     }
 
     /**
@@ -71,7 +80,7 @@ class TimeUtil {
         let second = time.getSeconds();
         let arr = [month, day, hours, minutes, second];
         arr.forEach((item, index) => {
-            arr[index] = item < 10 ? '0' + item : item
+            arr[index] = this.add0(item)
         });
         return `${year}${separator}${month}${separator}${day} ${hours}:${minutes}:${second}`
     }
@@ -103,6 +112,47 @@ class TimeUtil {
      */
     compareTime(timeStr1, timeStr2) {
         return new Date(timeStr1.replace(/-/g, "-")).getTime() < new Date(timeStr2.replace(/-/g, "-")).getTime()
+    }
+
+    /**
+     * 获取今天开始之后的一周时间
+     * @returns {string[]}  ["2020/8/2", "2020/8/3", "2020/8/4", "2020/8/5", "2020/8/6", "2020/8/7", "2020/8/8"]
+     */
+    getWeekTimeAfter() {
+        return [...new Array(7)].map((item, index) => new Date(Date.now() + index * 8.64e7).toLocaleDateString())
+    }
+
+    /**
+     * 获取今天开始之前的一周时间
+     * @returns {string[]}  ["2020/8/2", "2020/8/1", "2020/7/31", "2020/7/30", "2020/7/29", "2020/7/28", "2020/7/27"]
+     */
+    getWeekTimeBefore() {
+        return [...new Array(7)].map((item, index) => new Date(Date.now() - index * 8.64e7).toLocaleDateString())
+    }
+
+    /**
+     *
+     * @param format
+     * @param timestamp
+     * @returns {*}
+     */
+    superFormatDate(format = "Y-M-D h:m:s", timestamp = Date.now()) {
+        let date = new Date(timestamp);
+        let dateInfo = {
+            Y: date.getFullYear(),
+            M: (date.getMonth() + 1).toString(),
+            D: date.getDate(),
+            h: date.getHours(),
+            m: date.getMinutes(),
+            s: date.getSeconds()
+        };
+        return format
+            .replace("Y", dateInfo.Y)
+            .replace("M", this.add0(dateInfo.M))
+            .replace("D", this.add0(dateInfo.D))
+            .replace("h", this.add0(dateInfo.h))
+            .replace("m", this.add0(dateInfo.m))
+            .replace("s", this.add0(dateInfo.s))
     }
 }
 
